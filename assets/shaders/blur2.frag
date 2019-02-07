@@ -13,6 +13,7 @@ float weights[21];
 void main( void )
 {
     
+    //vec4 text1 = texture( uTex0, TexCoord.st  );
     
     weights[0] = 0.0091679276560113852;
     weights[1] = 0.014053461291849008;
@@ -35,18 +36,17 @@ void main( void )
     weights[18] = 0.020595286319257885;
     weights[19] = 0.014053461291849008;
     weights[20] = 0.00916792765601138;
-
-
+    
+    
     vec4 sum = vec4( 0.0, 0.0, 0.0,0.0 );
     vec2 baseOffset = -10.0 * sampleOffset;
     vec2 offset = vec2( 0.0, 0.0 );
     for( int s = 0; s < 21; ++s ) {
 
         vec4 c = texture( uTex0, TexCoord.st + baseOffset + offset ) ;
-        vec4 premult =  vec4( c.rgb * c.a, c.a );
-        sum += premult * weights[s];
+        //vec4 premult = vec4( c.rgb * c.a, c.a );
+        sum += c * weights[s];
         offset += sampleOffset;
     }
-
     oColor = sum;
 }
